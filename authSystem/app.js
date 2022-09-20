@@ -8,11 +8,17 @@ app.get("/", (req, res) => {
   res.send("<h1>Hello from MyAuth</h1>");
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
 
   if (!(email && firstname && lastname && password)) {
     res.status(400).send("all fields are required");
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      res.send(404).send("user already exists");
+    }
   }
 });
 
