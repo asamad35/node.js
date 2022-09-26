@@ -20,7 +20,9 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
-
+app.get("/", (req, res) => {
+  res.send("getForm");
+});
 app.get("/myget", (req, res) => {
   console.log(req.query);
 
