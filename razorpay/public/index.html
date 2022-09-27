@@ -16,7 +16,7 @@
     rpButton.addEventListener('click',async(e)=>{
         const response = await fetch('/order',{
             method: "POST",
-            headers: {
+            headers: { 
                 "Content-Type" :"application/json"
             },
             body: JSON.stringify({amount:600})
