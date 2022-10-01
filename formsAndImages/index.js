@@ -14,6 +14,7 @@ app.set("view engine", "ejs");
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// -- necessary when uploading file
 app.use(
   fileupload({
     useTempFiles: true,
@@ -28,18 +29,30 @@ app.get("/myget", (req, res) => {
 });
 
 app.post("/mypost", async (req, res) => {
+  // -- file doesn't comes in req.body , instead it comes in req.files
+  // -- if single file is selected it will be object, otherwise it will be array. TO select multiple files use "multiple tag in HTML form"
   const file = req.files.samplefile;
-  const result = await cloudinary.uploader.upload(file.tempFilePath, {
-    folder: "users",
-  });
-
-  console.log(req.body);
+  let result = [];
+  if (Array.isArray(file)) {
+    for (let i = 0; i < file.length; i++) {
+      // --pushing in cloudinary
+      const fileObj = await cloudinary.uploader.upload(file[i].tempFilePath, {
+        folder: "users",
+      });
+      result.push(fileObj);
+    }
+  } else {
+    result = await cloudinary.uploader.upload(file.tempFilePath, {
+      folder: "users",
+    });
+  }
 
   const details = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     result,
   };
+  console.log(details, "details");
 
   res.send(details);
 });
