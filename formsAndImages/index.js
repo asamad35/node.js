@@ -21,7 +21,9 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
-
+app.get("/", (req, res) => {
+  res.send("getForm");
+});
 app.get("/myget", (req, res) => {
   console.log(req.query);
 
@@ -65,3 +67,4 @@ app.get("/mypostform", (req, res) => {
 });
 
 app.listen(4001, () => console.log("Listening on port 4001..."));
+// a
