@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Tshirt store
+  description: Creating API's for tshirt store.
+  version: 1.1.0.
+  contact:
+    email: samad.abdus3535@gmail.com
+    url: https://asamadportfolio.netlify.app/
+
+# servers:
+#   - url: "https://localhost:4000/api/v1"
+#     description: this is local server
+
+#   - url: "https://localhost:4000/api/v1"
+#     description: this is production server
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: This is {security}
+
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+
+      security:
+        enum:
+          - insecure
+          - secure
+        default: insecure
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: apiKey
+      in: cookie
+      scheme: basic
+
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /:
+    get:
+      tags:
+        - Home Page
+      summary: Welcome to Home Page
+      responses:
+        200:
+          description: all good success
+          content:
+            application/json:
+              schema:
+                type: "string"
+                example: "mystring"
+        400:
+          description: bad request
+        500:
+          description: internal server error
