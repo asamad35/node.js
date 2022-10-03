@@ -24,9 +24,11 @@ app.use(morgan("tiny"));
 
 // import all routes here
 const homeRoute = require("./routes/homeRoute");
+const signupRoute = require("./routes/signupRoute");
 const { urlencoded } = require("express");
 
 // router middleware
 app.use("/api/v1", homeRoute);
+app.use("/api/v1", signupRoute);
 
 module.exports = app;
