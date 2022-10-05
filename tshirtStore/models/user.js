@@ -30,11 +30,11 @@ const userSchema = new mongoose.Schema({
   photo: {
     id: {
       type: String,
-      required: true,
+      required: false,
     },
     securedUrl: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   forgetPasswordToken: String,
