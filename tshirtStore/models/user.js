@@ -37,8 +37,8 @@ const userSchema = new mongoose.Schema({
       required: false,
     },
   },
-  forgetPasswordToken: String,
-  forgetPasswordDate: Date,
+  forgotPasswordToken: String,
+  forgotPasswordExpiry: Date,
   createdAt: {
     type: Date,
     default: Date.now,
@@ -52,7 +52,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // validate password with user passed password
-userSchema.methods.isPasswordValid = async (userEnteredPassword) => {
+userSchema.methods.isPasswordValid = async function (userEnteredPassword) {
   return await bcrypt.compare(userEnteredPassword, this.password);
 };
 
@@ -64,18 +64,18 @@ userSchema.methods.getJwtToken = function () {
 };
 
 // get forget password token (string)
-userSchema.methods.getForgetPasswordToken = function () {
+userSchema.methods.getForgotPasswordToken = function () {
   // create a long and random string
   const forgetPassword = crypto.randomBytes(20).toString("hex");
 
   // getting hash, make sure to hash on backend (extra layer of protection) (optional)
-  this.forgetPasswordToken = crypto
+  this.forgotPasswordToken = crypto
     .createHash("sha256")
     .update(forgetPassword)
     .digest("hex");
 
   // time of token
-  this.forgetPasswordExpiry = Date.now() + 20 * 60 * 1000;
+  this.forgotPasswordExpiry = Date.now() + 20 * 60 * 1000;
 
   return forgetPassword;
 };
