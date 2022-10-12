@@ -1,2 +1,2 @@
 HOME_LINK = https://www.getpostman.com/collections/67f38a1be10af238a866
-OFFICE_LINK = https://www.getpostman.com/collections/1a5a823aa52e8a34a379
+OFFICE_LINK = https://www.getpostman.com/collections/f1a7e3e2485c53e6d492
