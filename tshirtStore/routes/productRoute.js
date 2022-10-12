@@ -8,6 +8,7 @@ const {
   getAllProducts,
   adminGetAllProducts,
   getSingleProduct,
+  adminUpdateOneProduct,
 } = require("../controllers/productController");
 
 // user routes
@@ -22,5 +23,9 @@ router
 router
   .route("/admin/products")
   .get(isLoggedIn, customRole("admin"), adminGetAllProducts);
+
+router
+  .route("/admin/product/update/:id")
+  .post(isLoggedIn, customRole("admin"), adminUpdateOneProduct);
 
 module.exports = router;
