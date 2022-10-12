@@ -95,3 +95,68 @@ exports.adminGetAllProducts = BigPromise(async (req, res, next) => {
     products,
   });
 });
+
+exports.adminUpdateOneProduct = BigPromise(async (req, res, next) => {
+  const productID = req.params.id;
+
+  let product = await Product.findById(productID);
+  console.log(product, "product", req.files, req.body);
+  if (!product) {
+    return next(new CustomError("Product not found", 400));
+  }
+
+  const photosArr = [];
+  const photos = req.files.photos;
+
+  // updating photos
+  if (photos) {
+    // deleting
+    for (let i = 0; i < product.photos.length; i++) {
+      await cloudinary.uploader.destroy(product.photos[i].id);
+    }
+
+    // adding
+    // if there is only 1 photo then "photos" will be array
+    if (Array.isArray(photos)) {
+      for (let i = 0; i < photos.length; i++) {
+        const singlePhotoObj = await cloudinary.uploader.upload(
+          photos[i].tempFilePath,
+          {
+            folder: "product",
+          }
+        );
+        photosArr.push({
+          id: singlePhotoObj.public_id,
+          secure_url: singlePhotoObj.secure_url,
+        });
+      }
+    } else {
+      // wont be array because only one object is here
+      const singlePhotoObj = await cloudinary.uploader.upload(
+        photos.tempFilePath,
+        {
+          folder: "product",
+        }
+      );
+      photosArr.push({
+        id: singlePhotoObj.public_id,
+        secure_url: singlePhotoObj.secure_url,
+      });
+    }
+  }
+
+  // updating other details
+  product = await Product.findByIdAndUpdate(
+    productID,
+    { ...req.body, photos: photosArr },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
