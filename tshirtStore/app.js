@@ -31,12 +31,10 @@ app.set("view engine", "ejs");
 app.use(morgan("tiny"));
 
 // import all routes here
-const homeRoute = require("./routes/homeRoute");
 const signupRoute = require("./routes/signupRoute");
 const productRoute = require("./routes/productRoute");
 
 // router middleware
-app.use("/api/v1", homeRoute);
 app.use("/api/v1", signupRoute);
 app.use("/api/v1", productRoute);
 
