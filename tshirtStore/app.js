@@ -33,10 +33,14 @@ app.use(morgan("tiny"));
 // import all routes here
 const signupRoute = require("./routes/signupRoute");
 const productRoute = require("./routes/productRoute");
+const paymentRoute = require("./routes/paymentRoute");
+const orderRoute = require("./routes/orderRoute");
 
 // router middleware
 app.use("/api/v1", signupRoute);
 app.use("/api/v1", productRoute);
+app.use("/api/v1", paymentRoute);
+app.use("/api/v1", orderRoute);
 
 // ejs render
 app.get("/api/v1/signuptest", (req, res) => {
