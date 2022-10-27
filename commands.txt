@@ -1,0 +1,77 @@
+git add <file-name>
+git add .
+git commit
+git commit -m "message"
+git commit -a -m "message"
+
+git branch (show branches)
+git branch <branch-name> (creates new branch)
+git branch -m <new-branch-name> (rename branch)
+git branch -D <branch-name> (delete branch)
+
+git log
+git log --oneline (shows only first line of logs)
+ 
+-rm filename (remove file)
+rm -rf <directory name> (remove folder)
+
+git merge <branch-to-be-merged>
+
+git diff (compare changes b/w working directory and staging area) (only  unstaged changes)
+git diff HEAD (compare changes b/w last commit (position of head) and working directory) (both staged and unstaged changes)
+git diff --staged OR git -diff --cached (both shows only staged changes)
+
+git diff <file-path/paths> (get changes of these file/files only)
+git diff <branch1 branch2> (compares changes in branch)
+git diff <commit-ID-1 commit-ID-2> (compare changes b/w 2 commits)
+
+git stash (put uncommitted changes from current directory into stashing area) 
+git stash pop (put uncommitted changes from stashing area to current directory)
+git stash apply (uncommitted changes are applied to current directory but also retains in stashing area)
+
+WE CAN STASH MULTIPLE TIMES WHICH WILL CREATE A STACK OF STASHES
+git stash apply stash@{stashNumber} (apply targetted stash from stack of stashes)
+
+git stash list (shows list of all stashes)
+git stash clear(clear whole stash stack)
+git stash drop stash@{stashNumber} (drop targetted stash)
+
+////////////////////////////// Going back in  Time /////////////////////////////////////
+
+git checkout <commit-hash> (go back in time to that commit) [DETACHED HEAD]
+* switch branch to REATTACH HEAD
+* create and switch to a new branch from the  DETACHED HEAD to work on that commit.
+
+git checkout HEAD~1 (go 1 commit back)
+git checkout HEAD~N (go N commits back)
+
+///////////////////// Discard current changes, and get back to last commit /////////////////////////
+
+git checkout HEAD <filenames> 
+	OR 
+git checkout -- <filenames> 
+	OR
+git restore <filenames>
+
+////////////// Go Back To Previous Version Of A File/s Without Detaching Head /////////////
+
+git restore --source HEAD~N <file-name/s> (go N commit back)
+
+////////////////////////// Unstage file/s //////////////////////
+
+git restore --staged <file-name/s>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
